@@ -1,8 +1,13 @@
 package findtheway;
 
+import findtheway.controller.ApplicationController;
+
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(":D");
+        ApplicationController applicationController = new ApplicationController();
+        applicationController.initApplication();
+        applicationController.runApp();
     }
 }
