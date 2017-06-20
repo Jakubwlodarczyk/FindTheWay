@@ -1,5 +1,6 @@
 package findtheway.model;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 import findtheway.ui.UserInput;
 import findtheway.view.Message;
 
@@ -54,6 +55,4 @@ public class Application {
     private void addToTripList(CitySet citySet) {
         tripList.add(citySet);
     }
-
-
 }
