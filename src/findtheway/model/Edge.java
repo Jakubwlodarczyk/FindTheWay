@@ -1,61 +1,32 @@
 package findtheway.model;
 
-public class Edge implements Comparable<Edge> {
+public class Edge {
 
-    private Vertex one, two;
-    private int weight;
+    private Vertex begin, end;
+    private Integer weight;
 
-    public Edge(Vertex one, Vertex two){
-        this(one, two, 1);
-    }
+    private Edge() {}
 
-    public Edge(Vertex one, Vertex two, int weight){
-        this.one = (one.getLabel().compareTo(two.getLabel()) <= 0) ? one : two;
-        this.two = (this.one == one) ? two : one;
+    public Edge(Vertex begin, Vertex end, Integer weight) {
+        this.begin = begin;
+        this.end = end;
         this.weight = weight;
     }
 
-    public Vertex getNeighbor(Vertex current){
-        if(!(current.equals(one) || current.equals(two))){
-            return null;
-        }
-        return (current.equals(one)) ? two : one;
+    public String toString() {
+        return begin.getName() + "-->" + end.getName() + "| cost: " + getWeight().toString();
     }
 
-    public Vertex getOne(){
-        return this.one;
+    public Vertex getBegin() {
+        return begin;
     }
 
-    public Vertex getTwo(){
-        return this.two;
+    public Vertex getEnd() {
+        return end;
     }
 
-    public int getWeight(){
-        return this.weight;
-    }
-
-    public void setWeight(int weight){
-        this.weight = weight;
-    }
-
-    public int compareTo(Edge other){
-        return this.weight - other.weight;
-    }
-
-    public String toString(){
-        return "({" + one + ", " + two + "}, " + weight + ")";
-    }
-
-    public int hashCode(){
-        return (one.getLabel() + two.getLabel()).hashCode();
-    }
-
-    public boolean equals(Object other){
-        if(!(other instanceof Edge)){
-            return false;
-        }
-        Edge e = (Edge)other;
-        return e.one.equals(this.one) && e.two.equals(this.two);
+    public Integer getWeight() {
+        return weight;
     }
 }
 
