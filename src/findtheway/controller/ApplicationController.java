@@ -6,10 +6,10 @@ public class ApplicationController {
 
     DatabaseConnection databaseConnection;
 
-    public void initApplication() {
-        databaseConnection = new DatabaseConnection();
-        databaseConnection.getVertexes();
-        databaseConnection.getEdges();
-
-    }
+//    public void initApplication() {
+//        databaseConnection = new DatabaseConnection();
+//        databaseConnection.getVertexes();
+//        databaseConnection.getEdges();
+//
+//    }
 }

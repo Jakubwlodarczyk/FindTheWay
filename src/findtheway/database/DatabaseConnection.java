@@ -20,14 +20,22 @@ public class DatabaseConnection {
         return null;
     }
 
-    public List<Edge> getEdges() {
+    public List<Edge> getEdges(List<Vertex> vertexList) {
         List<Edge> edges = new ArrayList<>();
         Scanner scanner = getDatabaseScanner();
+        Vertex startCity = null;
+        Vertex destinationCity = null;
         for (Integer i = 0; scanner.hasNext(); i++) {
             String[] splitLine = scanner.nextLine().trim().split(" ");
             if (splitLine.length == 3) {
-                Vertex startCity = new Vertex(i.toString(), splitLine[0]);
-                Vertex destinationCity = new Vertex(i.toString(), splitLine[1]);
+                for (Vertex vertex : vertexList) {
+                    if (vertex.getName().equals(splitLine[0])) {
+                        startCity = vertex;
+                    }
+                    if (vertex.getName().equals(splitLine[1])) {
+                        destinationCity = vertex;
+                    }
+                }
                 edges.add(new Edge(i.toString(), startCity, destinationCity, Integer.parseInt(splitLine[2])));
             }
         }
@@ -53,7 +61,7 @@ public class DatabaseConnection {
         return vertexes;
     }
 
-    public Vertex getSource() {
+    public Vertex getSource(List<Vertex> vertexList) {
         String vertexName = null;
         Vertex vertex = null;
         Scanner scanner = getDatabaseScanner();
@@ -63,7 +71,7 @@ public class DatabaseConnection {
                 vertexName = splitLine[0];
             }
         }
-        for (Vertex v : getVertexes()) {
+        for (Vertex v : vertexList) {
             if (v.getName().equals(vertexName)) {
                 vertex = v;
             }
@@ -71,7 +79,7 @@ public class DatabaseConnection {
         return vertex;
     }
 
-    public Vertex getTarget() {
+    public Vertex getTarget(List<Vertex> vertexList) {
         String vertexName = null;
         Vertex vertex = null;
         Scanner scanner = getDatabaseScanner();
@@ -81,7 +89,7 @@ public class DatabaseConnection {
                 vertexName = splitLine[1];
             }
         }
-        for (Vertex v : getVertexes()) {
+        for (Vertex v : vertexList) {
             if (v.getName().equals(vertexName)) {
                 vertex = v;
             }

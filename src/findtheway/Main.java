@@ -15,9 +15,9 @@ public class Main {
         DatabaseConnection databaseConnection = new DatabaseConnection();
 
         List<Vertex> vertexList = databaseConnection.getVertexes();
-        List<Edge> edgeList = databaseConnection.getEdges();
-        Vertex source = databaseConnection.getSource();
-        Vertex target = databaseConnection.getTarget();
+        List<Edge> edgeList = databaseConnection.getEdges(vertexList);
+        Vertex source = databaseConnection.getSource(vertexList);
+        Vertex target = databaseConnection.getTarget(vertexList);
 
         Graph graph = new Graph(vertexList, edgeList);
         DijkstraAlgorithm dijkstraAlgorithm = new DijkstraAlgorithm(graph);
