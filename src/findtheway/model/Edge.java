@@ -1,32 +1,37 @@
 package findtheway.model;
 
-public class Edge {
 
-    private Vertex begin, end;
-    private Integer weight;
+public class Edge  {
+    private final String id;
+    private final Vertex source;
+    private final Vertex destination;
+    private final int cost;
 
-    private Edge() {}
-
-    public Edge(Vertex begin, Vertex end, Integer weight) {
-        this.begin = begin;
-        this.end = end;
-        this.weight = weight;
+    public Edge(String id, Vertex source, Vertex destination, int cost) {
+        this.id = id;
+        this.source = source;
+        this.destination = destination;
+        this.cost = cost;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    Vertex getDestination() {
+        return destination;
+    }
+
+    Vertex getSource() {
+        return source;
+    }
+
+    int getWeight() {
+        return cost;
+    }
+
+    @Override
     public String toString() {
-        return begin.getName() + "-->" + end.getName() + "| cost: " + getWeight().toString();
-    }
-
-    public Vertex getBegin() {
-        return begin;
-    }
-
-    public Vertex getEnd() {
-        return end;
-    }
-
-    public Integer getWeight() {
-        return weight;
+        return source + " " + destination + " " + cost;
     }
 }
-

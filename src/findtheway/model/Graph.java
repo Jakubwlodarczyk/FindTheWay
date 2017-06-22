@@ -1,37 +1,29 @@
 package findtheway.model;
 
-import java.util.LinkedList;
-import java.util.Objects;
+import java.util.List;
 
 public class Graph {
+    private final List<Vertex> vertexes;
+    private final List<Edge> edges;
 
-    private LinkedList<Vertex> vertices = new LinkedList<>();
-    private Integer vertexCount;
-
-    public Graph() {
-        vertexCount = 0;
+    public Graph(List<Vertex> vertexes, List<Edge> edges) {
+        this.vertexes = vertexes;
+        this.edges = edges;
     }
 
-    public Graph(Integer n) {
-        for(Integer i=0; i<n; i++)
-            vertices.add(new Vertex(i.toString()));
-        vertexCount = n;
+    public List<Vertex> getVertexes() {
+        return vertexes;
     }
 
-    public String toString() {
-        StringBuilder out = new StringBuilder();
-        for(Vertex v : vertices)
-            if(v != null && !Objects.equals(v.toString(), ""))
-                out.append(v.toString()).append("\n");
-        return out.toString();
+    public List<Edge> getEdges() {
+        return edges;
     }
 
-    public void addVertex(Vertex vertex) {
-        vertices.add(vertex);
-        vertexCount++;
+    public void addVertexToList(Vertex vertex) {
+        vertexes.add(vertex);
     }
 
-    public LinkedList<Vertex> getVertices() {
-        return vertices;
+    public void addEdgeToList(Edge edge) {
+        edges.add(edge);
     }
 }

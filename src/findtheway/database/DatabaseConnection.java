@@ -1,39 +1,91 @@
 package findtheway.database;
 
+import findtheway.model.Edge;
+import findtheway.model.Vertex;
+
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.util.*;
+
 
 public class DatabaseConnection {
 
-    private String pathToFile = "src/findtheway/database/info.txt";
-
-    public void createFile() {
-        Path path = Paths.get(pathToFile);
+    private Scanner getDatabaseScanner() {
         try {
-            Files.createFile(path);
+            String fileName = "src/findtheway/database.txt";
+            return new Scanner(new File(fileName));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("File not found");
         }
+        return null;
     }
 
-    public void deleteFile() {
-        Path fileToDeletePath = Paths.get(pathToFile);
-        try {
-            Files.delete(fileToDeletePath);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public List<Edge> getEdges() {
+        List<Edge> edges = new ArrayList<>();
+        Scanner scanner = getDatabaseScanner();
+        for (Integer i = 0; scanner.hasNext(); i++) {
+            String[] splitLine = scanner.nextLine().trim().split(" ");
+            if (splitLine.length == 3) {
+                Vertex startCity = new Vertex(i.toString(), splitLine[0]);
+                Vertex destinationCity = new Vertex(i.toString(), splitLine[1]);
+                edges.add(new Edge(i.toString(), startCity, destinationCity, Integer.parseInt(splitLine[2])));
+            }
         }
+        return edges;
     }
 
-    public void addTextToFile(String text) {
-        text = text + "\n";
-        try {
-            Files.write(Paths.get(pathToFile), text.getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public List<Vertex> getVertexes() {
+        List<Vertex> vertexes = new ArrayList<>();
+        List<String> citiesStringList = new ArrayList<>();
+        Scanner scanner = getDatabaseScanner();
+        for (Integer i = 0; scanner.hasNext(); i++) {
+            String[] splitLine = scanner.nextLine().trim().split(" ");
+            if (splitLine.length == 3) {
+                citiesStringList.add(splitLine[0]);
+                citiesStringList.add(splitLine[1]);
+            }
         }
+        Set<String> citiesStringSet = new HashSet<>(citiesStringList);
+        Object[] vertexesStringList = citiesStringSet.toArray();
+        for (Integer i = 0; i <vertexesStringList.length; i++ ) {
+            vertexes.add(new Vertex(i.toString(), (String)vertexesStringList[i]));
+        }
+        return vertexes;
+    }
+
+    public Vertex getSource() {
+        String vertexName = null;
+        Vertex vertex = null;
+        Scanner scanner = getDatabaseScanner();
+        for (Integer i = 0; scanner.hasNext(); i++) {
+            String[] splitLine = scanner.nextLine().trim().split(" ");
+            if (splitLine.length == 2) {
+                vertexName = splitLine[0];
+            }
+        }
+        for (Vertex v : getVertexes()) {
+            if (v.getName().equals(vertexName)) {
+                vertex = v;
+            }
+        }
+        return vertex;
+    }
+
+    public Vertex getTarget() {
+        String vertexName = null;
+        Vertex vertex = null;
+        Scanner scanner = getDatabaseScanner();
+        for (Integer i = 0; scanner.hasNext(); i++) {
+            String[] splitLine = scanner.nextLine().trim().split(" ");
+            if (splitLine.length == 2) {
+                vertexName = splitLine[1];
+            }
+        }
+        for (Vertex v : getVertexes()) {
+            if (v.getName().equals(vertexName)) {
+                vertex = v;
+            }
+        }
+        return vertex;
     }
 }

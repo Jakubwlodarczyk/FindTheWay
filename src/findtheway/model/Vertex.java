@@ -1,65 +1,39 @@
 package findtheway.model;
 
-import java.util.LinkedList;
 
 public class Vertex {
 
     private String name;
-    private LinkedList<Edge> edges = new LinkedList<>();
+    private String id;
 
-    private Vertex() {
-    }
-
-    public Vertex(String name) {
+    public Vertex(String id, String name) {
+        this.id = id;
         this.name = name;
-    }
-
-    public String toString() {
-        if(edges.size() == 0)
-            return "?";
-
-        StringBuilder out = new StringBuilder();
-        for(Edge e : edges)
-            out.append(e.toString()).append("\n");
-        return out.toString();
     }
 
     public String getName() {
         return name;
     }
 
-    public LinkedList<Edge> getEdges() {
-        return edges;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Vertex other = (Vertex) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 
-    public void removeEdge(String i) {
-        int e = edges.size()-1;
-        while ( e >= 0 ) {
-            if(edges.get(e).getEnd().getName().equals(i))
-                edges.remove(e);
-            e--;
-        }
-    }
-
-    public void removeEdge(Vertex v) {
-        removeEdge(v.getName());
-    }
-
-    public void addEdge(Edge e) {
-        edges.add(e);
-    }
-
-    public Edge getEdge(String n) {
-        for(Edge e : edges)
-            if(e.getEnd().getName().equals(n))
-                return e;
-        return null;
-    }
-
-    public Edge getEdgeAt(int n) {
-        if(n >= 0 && n < edges.size())
-            return edges.get(n);
-        else
-            return null;
+    @Override
+    public String toString() {
+        return name;
     }
 }
