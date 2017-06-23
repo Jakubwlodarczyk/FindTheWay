@@ -100,7 +100,7 @@ public class DijkstraAlgorithm {
         }
     }
 
-    public LinkedList<Vertex> getPath(Vertex target) {
+    public List<Vertex> getPath(Vertex target) {
         LinkedList<Vertex> path = new LinkedList<>();
         Vertex step = target;
         if (predecessors.get(step) == null) {
