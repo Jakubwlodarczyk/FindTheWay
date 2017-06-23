@@ -2,20 +2,14 @@ package findtheway.model;
 
 
 public class Edge  {
-    private final String id;
     private final Vertex source;
     private final Vertex destination;
     private final int cost;
 
-    public Edge(String id, Vertex source, Vertex destination, int cost) {
-        this.id = id;
+    public Edge(Vertex source, Vertex destination, int cost) {
         this.source = source;
         this.destination = destination;
         this.cost = cost;
-    }
-
-    public String getId() {
-        return id;
     }
 
     Vertex getDestination() {

@@ -25,7 +25,7 @@ public class DatabaseConnection {
         Scanner scanner = getDatabaseScanner();
         Vertex startCity = null;
         Vertex destinationCity = null;
-        for (Integer i = 0; scanner.hasNext(); i++) {
+        while (scanner.hasNext()) {
             String[] splitLine = scanner.nextLine().trim().split(" ");
             if (splitLine.length == 3) {
                 for (Vertex vertex : vertexList) {
@@ -36,7 +36,7 @@ public class DatabaseConnection {
                         destinationCity = vertex;
                     }
                 }
-                edges.add(new Edge(i.toString(), startCity, destinationCity, Integer.parseInt(splitLine[2])));
+                edges.add(new Edge(startCity, destinationCity, Integer.parseInt(splitLine[2])));
             }
         }
         return edges;
@@ -46,7 +46,7 @@ public class DatabaseConnection {
         List<Vertex> vertexes = new ArrayList<>();
         List<String> citiesStringList = new ArrayList<>();
         Scanner scanner = getDatabaseScanner();
-        for (Integer i = 0; scanner.hasNext(); i++) {
+        while (scanner.hasNext()) {
             String[] splitLine = scanner.nextLine().trim().split(" ");
             if (splitLine.length == 3) {
                 citiesStringList.add(splitLine[0]);
@@ -55,8 +55,8 @@ public class DatabaseConnection {
         }
         Set<String> citiesStringSet = new HashSet<>(citiesStringList);
         Object[] vertexesStringList = citiesStringSet.toArray();
-        for (Integer i = 0; i <vertexesStringList.length; i++ ) {
-            vertexes.add(new Vertex(i.toString(), (String)vertexesStringList[i]));
+        for (Object aVertexesStringList : vertexesStringList) {
+            vertexes.add(new Vertex((String) aVertexesStringList));
         }
         return vertexes;
     }
@@ -65,7 +65,7 @@ public class DatabaseConnection {
         String vertexName = null;
         Vertex vertex = null;
         Scanner scanner = getDatabaseScanner();
-        for (Integer i = 0; scanner.hasNext(); i++) {
+        while (scanner.hasNext()) {
             String[] splitLine = scanner.nextLine().trim().split(" ");
             if (splitLine.length == 2) {
                 vertexName = splitLine[0];
@@ -83,7 +83,7 @@ public class DatabaseConnection {
         String vertexName = null;
         Vertex vertex = null;
         Scanner scanner = getDatabaseScanner();
-        for (Integer i = 0; scanner.hasNext(); i++) {
+        while (scanner.hasNext()) {
             String[] splitLine = scanner.nextLine().trim().split(" ");
             if (splitLine.length == 2) {
                 vertexName = splitLine[1];
