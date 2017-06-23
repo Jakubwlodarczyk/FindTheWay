@@ -31,6 +31,17 @@ public class ApplicationController {
 
     public void calculatePath() {
         dijkstraAlgorithm.execute(source);
-        dijkstraAlgorithm.getPath(target);
+        List<Vertex> cheapestPath = dijkstraAlgorithm.getPath(target);
+        Integer costs = dijkstraAlgorithm.getCheapest(target);
+        System.out.println("The cheapest way to get from " + source.toString()
+        + " to " + target.toString() + " is:");
+        for (int i=0; i < cheapestPath.size(); i++) {
+            if (i+1 < cheapestPath.size()) {
+                System.out.print(cheapestPath.get(i).toString() + " -> ");
+            } else {
+                System.out.print(cheapestPath.get(i).toString());
+            }
+        }
+        System.out.println("\nTotal cost is: " + costs);
     }
 }

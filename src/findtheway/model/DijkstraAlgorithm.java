@@ -18,7 +18,7 @@ public class DijkstraAlgorithm {
     private Set<Vertex> settledNodes;
     private Set<Vertex> unSettledNodes;
     private Map<Vertex, Vertex> predecessors;
-    private Map<Vertex, Integer> distance;
+    private Map<Vertex, Integer> costs;
 
     public DijkstraAlgorithm(Graph graph) {
         this.nodes = new ArrayList<>(graph.getVertexes());
@@ -28,9 +28,9 @@ public class DijkstraAlgorithm {
     public void execute(Vertex source) {
         settledNodes = new HashSet<>();
         unSettledNodes = new HashSet<>();
-        distance = new HashMap<>();
+        costs = new HashMap<>();
         predecessors = new HashMap<>();
-        distance.put(source, 0);
+        costs.put(source, 0);
         unSettledNodes.add(source);
         while (unSettledNodes.size() > 0) {
             Vertex node = getMinimum(unSettledNodes);
@@ -43,9 +43,9 @@ public class DijkstraAlgorithm {
     private void findMinimalDistances(Vertex node) {
         List<Vertex> adjacentNodes = getNeighbors(node);
         for (Vertex target : adjacentNodes) {
-            if (getShortestDistance(target) > getShortestDistance(node)
+            if (getCheapest(target) > getCheapest(node)
                     + getDistance(node, target)) {
-                distance.put(target, getShortestDistance(node)
+                costs.put(target, getCheapest(node)
                         + getDistance(node, target));
                 predecessors.put(target, node);
                 unSettledNodes.add(target);
@@ -79,7 +79,7 @@ public class DijkstraAlgorithm {
             if (minimum == null) {
                 minimum = vertex;
             } else {
-                if (getShortestDistance(vertex) < getShortestDistance(minimum)) {
+                if (getCheapest(vertex) < getCheapest(minimum)) {
                     minimum = vertex;
                 }
             }
@@ -91,8 +91,8 @@ public class DijkstraAlgorithm {
         return settledNodes.contains(vertex);
     }
 
-    private int getShortestDistance(Vertex destination) {
-        Integer d = distance.get(destination);
+    public int getCheapest(Vertex destination) {
+        Integer d = costs.get(destination);
         if (d == null) {
             return Integer.MAX_VALUE;
         } else {
