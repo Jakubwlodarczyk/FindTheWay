@@ -15,15 +15,7 @@ public class Graph {
         return vertexes;
     }
 
-    public List<Edge> getEdges() {
+    List<Edge> getEdges() {
         return edges;
-    }
-
-    public void addVertexToList(Vertex vertex) {
-        vertexes.add(vertex);
-    }
-
-    public void addEdgeToList(Edge edge) {
-        edges.add(edge);
     }
 }
